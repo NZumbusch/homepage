@@ -5,5 +5,6 @@ import { enhancedImages } from '@sveltejs/enhanced-img';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [svelte(), enhancedImages() ],
-  server: { host: true }
+  server: { host: true },
+  base: "https://nzumbusch.github.io/homepage/"
 })
