@@ -6,5 +6,5 @@ import { enhancedImages } from '@sveltejs/enhanced-img';
 export default defineConfig({
   plugins: [svelte(), enhancedImages() ],
   server: { host: true },
-  base: "https://nzumbusch.github.io/homepage/"
+  base: process.env.BASE
 })
