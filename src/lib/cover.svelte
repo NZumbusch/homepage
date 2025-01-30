@@ -2,9 +2,10 @@
     import { onMount } from "svelte";
     import { coverInView } from "../stores/coverInView";
 
+
     let coverImages = [
         /*"/img/pictures/suedkurier_quer.jpg",*/
-        "/img/pictures/preistraegerkonzert_land.jpg"
+        "https://nzumbusch.github.io/homepage/img/pictures/preistraegerkonzert_land.jpg"
     ];
     let usedImageCounter = 0;
     /*
