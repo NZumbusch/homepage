@@ -6,66 +6,155 @@
 
     import BehindEuph from "../public/img/pictures/portraits/IMG_6773 Kopie2.jpg";
     import LookingLeft from "../public/img/pictures/portraits/IMG_6738 Kopie 2.jpg";
-
+    import levenshtein from "./lib/levenshtein";
 
     let socialMedia = [
         [ "fa:linkedin-square", "https://de.linkedin.com/in/nathanzumbusch" ],
         [ "fa:instagram", "https://www.instagram.com/nz.euph" ]
     ]
 
-    let repertoire = {
-        "Wind Band": [false, [
-            [ "Joseph Horovitz", "Euphonium Concerto" ],
-            [ "Philip Wilby", "Euphonium Concerto" ],
-            [ "Satoshi Yagisawa", "Euphonium Concerto" ],
-            [ "Yasuhide Ito", "Fantasy Variations" ],
-            [ "Luc Vertommen", "Carmen Fantasy" ],
-            [ "Rolf Wilhelm", "Concertino for Euphonium" ],
-            [ "Eduardo Boccalari", "Fantasia di Concerto" ],
-            [ "Bert Appermont", "The Green Hill" ]
-        ]],
-        "Brass Band": [false, [
-            [ "Joseph Horovitz", "Euphonium Concerto" ],
-            [ "Philip Wilby", "Euphonium Concerto" ],
-            [ "Luc Vertommen", "Carmen Fantasy" ],
-            [ "Gilles Rocha", "Ad Astra" ],
-            [ "Bert Appermont", "The Green Hill" ]
-        ]],
-        "Piano": [false, [
-            [ "Joseph Horovitz", "Euphonium Concerto" ],
-            [ "Philip Wilby", "Euphonium Concerto" ],
-            [ "Satoshi Yagisawa", "Euphonium Concerto" ],
-            [ "Yasuhide Ito", "Fantasy Variations" ],
-            [ "Luc Vertommen", "Carmen Fantasy" ],
-            [ "Rolf Wilhelm", "Concertino for Euphonium" ],
-            [ "Anthony Girard", "Sonata for Euphonium and Piano" ],
-            [ "Eduardo Boccalari", "Fantasia di Concerto" ],
-            [ "Antonio Vivaldi", "Bassoon Concerto in E-flat minor, RV. 484" ],
-            [ "Georg F. Telemann", "Sonata in F minor" ],
-            [ "Robert Schumann", "Fantasiestücke, op. 73" ],
-            [ "Bert Appermont", "The Green Hill" ]
-        ]],
-        "Unaccompanied": [false, [
-            [ "Thomas Rüedi", "In Modo Humano" ],
-            [ "Thomas Rüedi", "Anemoi" ],
-            [ "Leonardo Falcone", "Mazurka" ]
-        ]]
+    type repT = (string | { title: string; original: boolean; piano: boolean; windband: boolean; brassband: boolean; orchestra: boolean; }[])[][];
+    const rep: repT = [
+        [ "Joseph Horovitz", [
+            { title: "Euphonium Concerto", original: true, piano: true, windband: true, brassband: true, orchestra: true }
+        ] ],
+        [ "Philip Wilby", [
+            { title: "Euphonium Concerto", original: true, piano: true, windband: true, brassband: true, orchestra: false }
+        ] ],
+        [ "Satoshi Yagisawa", [
+            { title: "Euphonium Concerto", original: true, piano: true, windband: true, brassband: false, orchestra: false }
+        ] ],
+        [ "Yasuhide Ito", [
+            { title: "Fantasy Variations", original: true, piano: true, windband: true, brassband: false, orchestra: false }
+        ] ],
+        [ "Luc Vertommen", [
+            { title: "Carmen Fantasy Nr. 1", original: true, piano: true, windband: true, brassband: true, orchestra: false }
+        ] ],
+        [ "Rolf Wilhelm", [
+            { title: "Concertino for Euphonium", original: true, piano: true, windband: true, brassband: false, orchestra: false }
+        ] ],
+        [ "Eduardo Boccalari", [
+            { title: "Fantasia di Concerto", original: true, piano: true, windband: true, brassband: false, orchestra: false }
+        ] ],
+        [ "Bert Appermont", [
+            { title: "The Green Hill", original: true, piano: true, windband: true, brassband: true, orchestra: false }
+        ] ],
+        [ "Jean-Baptiste Arban", [
+            { title: "Fantasie Brillante", original: false, piano: true, windband: true, brassband: true, orchestra: true },
+            { title: "Fantaisie Variations on \"The Carnival of Venice\"", original: false, piano: true, windband: true, brassband: true, orchestra: true }
+        ] ],
+        [ "Gilles Rocha", [
+            { title: "Ad Astra", original: true, piano: true, windband: false, brassband: true, orchestra: false }
+        ] ],
+        [ "Antonio Vivaldi", [
+            { title: "Bassoon Concerto in E-flat minor, RV. 484", original: false, piano: true, windband: false, brassband: true, orchestra: true }
+        ] ],
+        [ "Georg F. Telemann", [
+            { title: "Sonata in F minor", original: false, piano: true, windband: false, brassband: false, orchestra: false }
+        ] ],
+        [ "Robert Schumann", [
+            { title: "Fantasiestücke, op. 73", original: false, piano: true, windband: false, brassband: false, orchestra: false }
+        ] ],
+        [ "Marcel Bitsch", [
+            { title: "Intermezzo", original: true, piano: true, windband: false, brassband: false, orchestra: false }
+        ] ],
+        [ "Jules Semler-Collery", [
+            { title: "Intermezzo", original: true, piano: true, windband: false, brassband: false, orchestra: false }
+        ] ],
+        [ "Thomas Rüedi", [
+            { title: "In Modo Humano", original: true, piano: false, windband: false, brassband: false, orchestra: false },
+            { title: "Anemoi", original: true, piano: false, windband: false, brassband: false, orchestra: false }
+        ] ],
+        [ "Leonard Falcone", [
+            { title: "Mazurka", original: true, piano: false, windband: false, brassband: false, orchestra: false }
+        ] ],
+        [ "Zequinha de Abreu", [
+            { title: "Tico-Tico no Fubá", original: true, piano: false, windband: false, brassband: false, orchestra: false }
+        ] ]
+    ]
+
+
+
+    const compareStrings = (a, b) => {
+        if (a < b) return -1;
+        if (a > b) return 1;
+
+        return 0;
     }
-    function openRepertoire (setting: keyof typeof repertoire) {
-        for (let i in repertoire) {
-            if (i != setting || repertoire[i as keyof typeof repertoire][0] == true) {
-                repertoire[i as keyof typeof repertoire][0] = false;
-            } else {
-                repertoire[i as keyof typeof repertoire][0] = true;
-            }
-        }  
+
+    const compare = (a, b) => {
+        const splitA = a.split(" ");
+        const splitB = b.split(" ");
+        const lastA = splitA[splitA.length - 1];
+        const lastB = splitB[splitB.length - 1];
+        if (lastA === lastB) {
+            return compareStrings(splitA[0], splitB[0])
+        } else {
+            return compareStrings(lastA, lastB);
+        }
     }
+
+
+
+    let repertoireFilterComposer = "";
+    let repertoireFilterTitle = "";
+    let repertoireFilter = "";
+    let fRep: repT = [];
+    //$: console.log(repertoireFilter, repertoireFilterComposer, repertoireFilterTitle)
+    $: repertoireFilter, repertoireFilterTitle, repertoireFilterComposer, updateRepertoire();
+    const updateRepertoire = () => {
+        fRep = rep;
+        console.log(repertoireFilter, repertoireFilterComposer, repertoireFilterComposer, rep, fRep);
+        fRep = repertoireFilterComposer.length > 0 ? rep.filter((element) => { return (levenshtein(element[0], repertoireFilterComposer) < 3) || element[0].indexOf(repertoireFilterComposer) !== -1; }) : rep.slice();
+
+        if (repertoireFilterTitle.length > 0) {
+            fRep.forEach((element, i) => {
+                fRep[i] = [ element[0], element[1].filter( (e) => { return (levenshtein(e.title, repertoireFilterTitle) < 3) || e.title.indexOf(repertoireFilterTitle) !== -1; } ) ]
+            })
+        }
+
+        if (repertoireFilter !== "") {
+            fRep.forEach((element, i) => {
+                fRep[i] = [ element[0], element[1].filter( (e) => { 
+                    switch (repertoireFilter) {
+                        case "c":
+                            return e.windband;
+                            break;
+                        case "s":
+                            return e.orchestra;
+                            break;
+                        case "b":
+                            return e.brassband;
+                            break;
+                        case "p":
+                            return e.piano;
+                            break;
+                        case "u":
+                            return !(e.windband || e.orchestra || e.brassband || e.piano);
+                            break;
+                        default:
+                            return false;
+                    }
+                } ) ]
+            })
+        }
+
+
+        fRep = fRep.filter((e) => { return (e[1].length > 0) }).sort((a, b) => {
+            return compare(a[0], b[0]);
+        })
+
+        console.log(fRep, rep)
+
+    }
+
 
 
     let innerWidth = 0;
     let innerHeight = 0;
     $: onMobile = innerWidth < innerHeight;
-    $: console.log(innerWidth, innerHeight, innerWidth < innerHeight); 
+    // $: console.log(innerWidth, innerHeight, innerWidth < innerHeight); 
+    let repFilterVisible = false;
 </script>
 
 
@@ -99,17 +188,61 @@
 
 
     <div id="repertoire" class="pr-8 pl-8 relative w-full h-auto bg-theme-dim-alternate flex flex-col-reverse sm:flex-row items-center justify-center flex-grow">
-        <div class="relative text-right pb-8">
-            <h1 class="text-4xl font-playfair mb-8">Repertoire</h1>
-            <div>
-                {#each (Object.keys(repertoire) as Array<keyof typeof repertoire>) as setting}
-                    <button on:click={() => {openRepertoire(setting)}} class="text-xl underline font-playfair italic mt-3 first:mt-0">{setting}</button>
-                    <div  class="relative w-full transition-all overflow-hidden {repertoire[setting][0] == false ? "max-h-0" : "max-h-[fit]"}">
-                        {#each (repertoire[setting][1] as string[][]) as piece}
-                            <p>{piece[0]}: {piece[1]}</p>
-                        {/each}
+        <div class="relative text-right pb-8 w-[50%]">
+            <div class="flex flex-row-reverse justify-between items-start mb-5">
+                <div>
+                    <h1 class="text-4xl font-playfair flex-grow-0">Repertoire</h1>
+                    <p>{fRep.length} results.</p>
+                </div>
+            
+                <div class="search-container">
+                    <div class="dropdown">
+                    <button id="filterDropdown" style="{  repFilterVisible ? "transform: scale(1.03)" : '' }" aria-haspopup="true" aria-expanded="false" onclick="{() => {repFilterVisible = !repFilterVisible}}">
+                        Filters
+                    </button>
+                    <div
+                        id="filterContent"
+                        class="dropdown-content {repFilterVisible ? "active" : "" }"
+                        aria-labelledby="filterDropdown"
+                    >
+                        <div class="filter-group">
+                            <label for="phaseFilter">Accompaniment</label>
+                            <select bind:value={repertoireFilter} id="phaseFilter">
+                                <option value="">All</option>
+                                <option value="c">Concert Band</option>
+                                <option value="b">Brass Band</option>
+                                <option value="s">Symphony Orchestra</option>
+                                <option value="p">Piano</option>
+                                <option value="u">Unaccompanied</option>
+                            </select>
+                        </div>
+            
+                        <div class="filter-group">
+                            <label for="composerFilter">Composer</label>
+                            <input bind:value={repertoireFilterComposer} type="text" id="composerFilter" placeholder="Composer" />
+                        </div>
+                        <div class="filter-group">
+                            <label for="titleFilter">Title</label>
+                            <input bind:value={repertoireFilterTitle} type="text" id="titleFilter" placeholder="Title" />
+                        </div>
                     </div>
-                {/each}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scrollbox h-[60vh] overflow-y-auto pr-5" style="border-right: 2px solid black;">
+                {#if fRep.length > 0}
+                
+                    {#each fRep as composer}
+                        <div class="text-xl mt-5 first:mt-0">{ composer[0] }</div>
+                        {#each composer[1] as p}
+                            <p>{ p.title }</p>
+                        {/each}
+                    {/each}
+                
+                {:else}
+                    Sadly there are no results for this filter. Try something different. s
+                {/if}
             </div>
         </div>
 
@@ -154,3 +287,208 @@
         </div>
     </div>
 </main>
+
+
+
+
+<style>
+
+    :root {
+        --primary-color: #9160D6; /* Vert moderne */
+        --secondary-color: #CBB3BF; /* Fond sombre */
+        --accent-color: #535353; /* Gris foncé */
+        --text-color: #121212;
+        --background-color: #191414; /* Fond légèrement plus clair */
+    }
+
+
+
+
+.dropdown button {
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    padding: 12px;
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    flex-grow: 1;
+}
+
+input::placeholder {
+    color: var(--accent-color);
+}
+
+#searchInput {
+    padding-left: 20px;
+    flex-grow: 2;
+}
+
+button {
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--accent-color);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: var(--secondary-color);
+    min-width: 250px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.dropdown-content.active {
+    display: block;
+    margin-top: 10px;
+}
+
+.toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background-color: var(--secondary-color);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .dropdown button {
+        padding: 8px 12px;
+        background-color: #CBB3BF;
+
+        color: black;
+        border: 2px solid #CBB3BF;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 700;
+        transition: background-color 0.3s ease;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+        padding: 12px;
+        border: 1px solid var(--accent-color);
+        border-radius: 5px;
+        font-size: 16px;
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        flex-grow: 1;
+    }
+
+    input::placeholder {
+        color: var(--accent-color);
+    }
+
+    #searchInput {
+        padding-left: 20px;
+        flex-grow: 2;
+    }
+
+    button {
+        padding: 12px 24px;
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 700;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        transform: scale(1.03);
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        background-color: var(--secondary-color);
+        min-width: 250px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        z-index: 1;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    .dropdown-content.active {
+        display: block;
+    }
+
+    .filter-group {
+        margin-bottom: 15px;
+    }
+
+    .filter-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #121212;
+        font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+        .toolbar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-container {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .dropdown-content {
+            width: 100%;
+            left: 0;
+        }
+    }
+
+</style>
