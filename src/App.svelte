@@ -188,44 +188,44 @@
 
 
     <div id="repertoire" class="pr-8 pl-8 relative w-full h-auto bg-theme-dim-alternate flex flex-col-reverse sm:flex-row items-center justify-center flex-grow">
-        <div class="relative text-right pb-8 w-[50%]">
+        <div class="relative text-right pb-8 w-[80%] sm:w-[50%]">
             <div class="flex flex-row-reverse justify-between items-start mb-5">
                 <div>
-                    <h1 class="text-4xl font-playfair flex-grow-0">Repertoire</h1>
+                    <h1 class="text-4xl font-playfair flex-grow-0 mt-16 sm:mt-0">Repertoire</h1>
                     <p>{fRep.length} results.</p>
                 </div>
             
                 <div class="search-container">
                     <div class="dropdown">
-                    <button id="filterDropdown" style="{  repFilterVisible ? "transform: scale(1.03)" : '' }" aria-haspopup="true" aria-expanded="false" onclick="{() => {repFilterVisible = !repFilterVisible}}">
-                        Filters
-                    </button>
-                    <div
-                        id="filterContent"
-                        class="dropdown-content {repFilterVisible ? "active" : "" }"
-                        aria-labelledby="filterDropdown"
-                    >
-                        <div class="filter-group">
-                            <label for="phaseFilter">Accompaniment</label>
-                            <select bind:value={repertoireFilter} id="phaseFilter">
-                                <option value="">All</option>
-                                <option value="c">Concert Band</option>
-                                <option value="b">Brass Band</option>
-                                <option value="s">Symphony Orchestra</option>
-                                <option value="p">Piano</option>
-                                <option value="u">Unaccompanied</option>
-                            </select>
+                        <button id="filterDropdown" style="{  repFilterVisible ? "transform: scale(1.03)" : '' }" aria-haspopup="true" aria-expanded="false" onclick="{() => {repFilterVisible = !repFilterVisible}}">
+                            Filters
+                        </button>
+                        <div
+                            id="filterContent"
+                            class="dropdown-content {repFilterVisible ? "active" : "" }"
+                            aria-labelledby="filterDropdown"
+                        >
+                            <div class="filter-group">
+                                <label for="phaseFilter">Accompaniment</label>
+                                <select bind:value={repertoireFilter} id="phaseFilter">
+                                    <option value="">All</option>
+                                    <option value="c">Concert Band</option>
+                                    <option value="b">Brass Band</option>
+                                    <option value="s">Symphony Orchestra</option>
+                                    <option value="p">Piano</option>
+                                    <option value="u">Unaccompanied</option>
+                                </select>
+                            </div>
+                
+                            <div class="filter-group">
+                                <label for="composerFilter">Composer</label>
+                                <input bind:value={repertoireFilterComposer} type="text" id="composerFilter" placeholder="Composer" />
+                            </div>
+                            <div class="filter-group">
+                                <label for="titleFilter">Title</label>
+                                <input bind:value={repertoireFilterTitle} type="text" id="titleFilter" placeholder="Title" />
+                            </div>
                         </div>
-            
-                        <div class="filter-group">
-                            <label for="composerFilter">Composer</label>
-                            <input bind:value={repertoireFilterComposer} type="text" id="composerFilter" placeholder="Composer" />
-                        </div>
-                        <div class="filter-group">
-                            <label for="titleFilter">Title</label>
-                            <input bind:value={repertoireFilterTitle} type="text" id="titleFilter" placeholder="Title" />
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -414,6 +414,8 @@ button:hover {
         background-color: var(--secondary-color);
         color: var(--text-color);
         flex-grow: 1;
+
+        width: 100%;
     }
 
     input::placeholder {
