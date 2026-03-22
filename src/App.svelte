@@ -70,6 +70,17 @@
         ] ],
         [ "Zequinha de Abreu", [
             { title: "Tico-Tico no Fubá", original: true, piano: false, windband: false, brassband: false, orchestra: false }
+        ] ],
+        [ "Philip Sparke", [
+            { title: "Harlequin", original: true, piano: true, windband: true, brassband: true, orchestra: false },
+            { title: "Pantomime", original: true, piano: true, windband: true, brassband: true, orchestra: false },
+            { title: "Euphonium Concerto Nr. 1", original: true, piano: true, windband: true, brassband: true, orchestra: false }
+        ] ],
+        [ "Johann Nepomuk Hummel", [
+            { title: "Grand Concerto for Bassoon", original: false, piano: true, windband: false, brassband: false, orchestra: true },
+        ] ],
+        [ "John Stevens", [
+            { title: "Soliloquies", original: true, piano: false, windband: false, brassband: false, orchestra: false },
         ] ]
     ]
 
@@ -179,9 +190,9 @@
                 <h1 class="text-4xl font-playfair mb-8">About me</h1>
                 <p>Nathan began his euphonium studies at the age of six. By playing in different ensembles and genres, he soon developed a sense for music playing and performance in different constellations and occasions.</p>
                 <p class="mt-2">At age 10, he participated in his first music contest, from whereon he continued to gather competition experience, eventually leading to a <a class="text-theme-bright font-semibold mb-[5px] underline" href="https://dasneueradioseefunk.imsueden.de/musikschule-konstanz-erzielt-hervorragende-ergebnisse-364044/">first price in the prestigious "Bundeswettbewerb Jugend musiziert"</a>, with a full 25 of 25 points being given. </p>
-                <p class="mt-2">Now, Nathan is playing in multiple ensembles, namely the <a class="text-theme-bright font-semibold mb-[5px] underline" href="https://landesblasorchester.de">symphonic wind orchestra of the state of "Baden-Württemberg"</a> and it's youth counterpart, and is performing both in an ensemble settings as well as as soloist with piano or concert band. He is also frequently working as a substitute in wind bands such as the <a class="text-theme-bright font-semibold mb-[5px] underline" href="https://landespolizeiorchester-bw.de">police band of the state of "Baden-Württemberg"</a>.</p>
-                <p class="mt-2">Nathan began his lessons with Steffen Schwartz at the local music school in Constance, Germany. From thereon, he also studied with Michael Müller whilst frequently participating in masterclasses and taking lessons with renowned personalities like Steven Mead and Anne Jelle Visser.</p>
-                <p class="mt-2">In autumn 2024, Nathan is now starting his bachelor studies in music performance at the <a class="text-theme-bright font-semibold mb-[5px] underline" href="https://hslu.ch">Lucerne conservatory</a> with <a class="text-theme-bright font-semibold mb-[5px] underline" href="https://thomasruedi.ch">Thomas Rüedi</a>.</p>
+                <p class="mt-2">Nathan has experience playing in multiple ensembles, namely the <a class="text-theme-bright font-semibold mb-[5px] underline" href="https://landesblasorchester.de">symphonic wind orchestra of the state of "Baden-Württemberg"</a> and it's youth counterpart, and is frequently performing both in an ensemble settings as well as as a soloist with piano or concert band. He is also often working as a substitute in wind bands such as the <a class="text-theme-bright font-semibold mb-[5px] underline" href="https://landespolizeiorchester-bw.de">police band of the state of "Baden-Württemberg"</a>.</p>
+                <p class="mt-2">Having begun his studies with Steffen Schwartz at the local music school in Constance, Germany, he also took lessons with Michael Müller whilst frequently participating in masterclasses and taking lessons with renowned personalities like Steven Mead and Anne Jelle Visser.</p>
+                <p class="mt-2">In autumn 2024, Nathan has now started his bachelor studies in music performance at the <a class="text-theme-bright font-semibold mb-[5px] underline" href="https://hslu.ch">Lucerne conservatory</a> with <a class="text-theme-bright font-semibold mb-[5px] underline" href="https://thomasruedi.ch">Thomas Rüedi</a>.</p>
             </div>
         </div>
     </div>
@@ -241,7 +252,7 @@
                     {/each}
                 
                 {:else}
-                    Sadly there are no results for this filter. Try something different. s
+                    There are no results for this filter. YOu can try something different.
                 {/if}
             </div>
         </div>
