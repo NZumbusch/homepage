@@ -1,0 +1,106 @@
+---
+import '../../app.css';
+import Repertoire from '../../components/music/Repertoire.astro';
+import Cover from '../../components/music/Cover.astro';
+import { ClientRouter } from 'astro:transitions';
+import { Image } from 'astro:assets';
+import portraitImg from '../../../public/img/pictures/portraits/IMG_6773 Kopie2.jpg';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nathan Zumbusch - Euphonium</title>
+    <meta name="description" content="Classical Music Portfolio of Nathan Zumbusch. Euphonium soloist and chamber musician." />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <ClientRouter />
+</head>
+<body class="bg-light text-dark font-rubik min-h-screen flex flex-col selection:bg-music-bright/30 transition-colors duration-1000">
+    <nav class="fixed top-0 w-full backdrop-blur-md border-b z-50 transition-colors duration-1000" style="background-color: rgba(250, 250, 250, 0.9); border-color: rgba(203, 179, 191, 0.3);">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <a href="/" class="text-dark font-playfair font-bold text-xl hover:text-music-bright transition-colors">NZ.</a>
+            <div class="flex flex-wrap justify-end gap-3 sm:gap-6 text-xs sm:text-sm uppercase tracking-wider font-medium" style="color: rgba(25, 20, 20, 0.7);">
+                <a href="#about" class="hover:text-music-bright transition-colors">About</a>
+                <a href="#repertoire" class="hover:text-music-bright transition-colors">Repertoire</a>
+                <a href="#projects" class="hover:text-music-bright transition-colors hidden sm:inline">Projects</a>
+                <a href="#contact" class="hover:text-music-bright transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <Cover />
+
+    <main class="relative z-10 w-full max-w-7xl mx-auto px-0 md:px-6 lg:px-8 flex-grow -mt-0 md:-mt-40 pb-24">
+        <div class="bg-light md:bg-white rounded-none md:rounded-[3rem] shadow-none md:shadow-[0_20px_60px_rgba(0,0,0,0.1)] overflow-hidden p-6 sm:p-12 md:p-20 space-y-24 md:space-y-32">
+        
+        <!-- About Section -->
+        <section id="about" class="scroll-mt-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="relative group">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-music-bright to-music-dim opacity-30 blur-lg group-hover:opacity-50 transition duration-1000"></div>
+                    <Image src={portraitImg} alt="Nathan Zumbusch behind Euphonium" class="relative rounded-xl shadow-2xl w-full h-auto object-cover aspect-[4/5] grayscale-[20%] hover:grayscale-0 transition duration-700" />
+                </div>
+                <div class="space-y-6">
+                    <h1 class="text-4xl font-playfair mb-8">About me</h1>
+                    <p>Nathan began his euphonium studies at the age of six. By playing in different ensembles and genres, he soon developed a sense for music playing and performance in different constellations and occasions.</p>
+                    <p class="mt-2">At age 10, he participated in his first music contest, from whereon he continued to gather competition experience, eventually leading to a <a class="text-music-bright font-medium hover:underline transition-colors" href="https://dasneueradioseefunk.imsueden.de/musikschule-konstanz-erzielt-hervorragende-ergebnisse-364044/">first price in the prestigious "Bundeswettbewerb Jugend musiziert"</a>, with a full 25 of 25 points being given. </p>
+                    <p class="mt-2">Now, Nathan is playing in multiple ensembles, namely the <a class="text-music-bright font-medium hover:underline transition-colors" href="https://landesblasorchester.de">symphonic wind orchestra of the state of "Baden-Württemberg"</a> and it's youth counterpart, and is performing both in an ensemble settings as well as as soloist with piano or concert band. He is also frequently working as a substitute in wind bands such as the <a class="text-music-bright font-medium hover:underline transition-colors" href="https://landespolizeiorchester-bw.de">police band of the state of "Baden-Württemberg"</a>.</p>
+                    <p class="mt-2">Nathan began his lessons with Steffen Schwartz at the local music school in Constance, Germany. From thereon, he also studied with Michael Müller whilst frequently participating in masterclasses and taking lessons with renowned personalities like Steven Mead and Anne Jelle Visser.</p>
+                    <p class="mt-2">In autumn 2024, Nathan is now starting his bachelor studies in music performance at the <a class="text-music-bright font-medium hover:underline transition-colors" href="https://hslu.ch">Lucerne conservatory</a> with <a class="text-music-bright font-medium hover:underline transition-colors" href="https://thomasruedi.ch">Thomas Rüedi</a>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="scroll-mt-24">
+            <h2 class="text-3xl md:text-5xl font-playfair font-bold text-center mb-16">Projects & Ensembles</h2>
+            <div class="max-w-3xl mx-auto bg-white border border-music-dim/40 shadow-xl rounded-[2rem] p-12 md:p-16 text-center hover:border-music-bright transition duration-500">
+                <h3 class="text-3xl font-playfair font-bold text-dark mb-6">Amabile Brass</h3>
+                <p class="text-zinc-600 text-lg mb-8 leading-relaxed">
+                    Nathan is a member of the Amabile Brass, a young quartet consisting of alto horn (Anabel Voigt), two euphoniums (Nathan Zumbusch and Klemens Vetter), and tuba (Lara Schomann), which captivates audiences with its lyrical, virtuosic, and at the same time exciting chamber music interplay.
+                </p>
+                <a href="https://amabilebrass.de" target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center gap-2 px-8 py-4 bg-music-bright hover:bg-[#7b51b5] text-white rounded-full font-medium transition-colors shadow-lg shadow-music-bright/20 text-center w-full sm:w-auto">
+                    Visit amabilebrass.de
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- Repertoire Section -->
+        <section id="repertoire" class="scroll-mt-24 py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-5xl font-playfair font-bold mb-6">Repertoire</h2>
+                <p class="text-zinc-600 text-lg max-w-2xl mx-auto">Explore selected works from Nathan's solo and chamber repertoire.</p>
+            </div>
+            
+            <Repertoire />
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="scroll-mt-24">
+            <div class="bg-music-dim/20 rounded-3xl p-12 md:p-24 text-dark text-center">
+                <h2 class="text-4xl md:text-5xl font-playfair font-bold mb-8">Connect with me</h2>
+                <p class="text-lg md:text-xl text-zinc-700 max-w-2xl mx-auto mb-12">
+                    If you have any questions, want to work together on a project or just chat, I'd love to hear from you! 
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="mailto:info@nathanzumbusch.de" class="px-10 py-4 bg-music-bright hover:bg-[#7b51b5] text-white rounded-full font-bold text-lg transition-colors shadow-lg shadow-music-bright/30 text-center">
+                        Send an Email
+                    </a>
+                    <a href="https://www.instagram.com/nz.euph" target="_blank" rel="noopener noreferrer" class="px-10 py-4 border-2 border-[#191414] hover:bg-dark hover:text-white rounded-full font-bold text-lg transition-colors text-center">
+                        Instagram
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        </div>
+    </main>
+
+    <footer class="border-t border-music-dim/40 py-12 text-center text-zinc-500 text-sm px-6 w-full">
+        <p>&copy; {new Date().getFullYear()} Nathan Zumbusch. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

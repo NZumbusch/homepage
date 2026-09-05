@@ -1,0 +1,48 @@
+---
+import '../app.css';
+import { ClientRouter } from 'astro:transitions';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nathan Zumbusch - Portfolio</title>
+    <meta name="description" content="Portfolio of Nathan Zumbusch - Computer Science, Classical Music, and Blog." />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <ClientRouter />
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-8 bg-zinc-950 text-zinc-300 font-rubik selection:bg-music-bright/30">
+
+    <div class="max-w-4xl w-full text-center mb-16 animate-fade-in">
+        <h1 class="text-5xl md:text-7xl font-playfair font-light text-zinc-100 tracking-wide mb-4">Nathan Zumbusch</h1>
+        <p class="text-xl md:text-2xl text-zinc-400 font-light tracking-widest uppercase">Portfolio</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
+        <!-- Computer Science -->
+        <a href="/computer-science" class="group relative flex flex-col items-center justify-center p-12 bg-zinc-900 border border-zinc-800 hover:border-blue-500/50 transition-all duration-500 rounded-lg overflow-hidden text-center">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <h2 class="text-2xl text-zinc-100 mb-4 z-10 group-hover:text-blue-400 transition-colors">Computer Science</h2>
+            <p class="text-zinc-400 text-center z-10 font-light">Software Engineering</p>
+        </a>
+
+        <!-- Music -->
+        <a href="/music" class="group relative flex flex-col items-center justify-center p-12 bg-zinc-900 border border-zinc-800 hover:border-purple-500/50 transition-all duration-500 rounded-lg overflow-hidden text-center">
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <h2 class="text-2xl text-zinc-100 mb-4 z-10 group-hover:text-purple-400 transition-colors">Classical Music</h2>
+            <p class="text-zinc-400 text-center z-10 font-light">Euphonium Performance</p>
+        </a>
+
+        <!-- Blog 
+        <a href="/blog" class="group relative flex flex-col items-center justify-center p-12 bg-zinc-900 border border-zinc-800 hover:border-emerald-500/50 transition-all duration-500 rounded-lg overflow-hidden text-center">
+            <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <h2 class="text-2xl text-zinc-100 mb-4 z-10 group-hover:text-emerald-400 transition-colors">Blog</h2>
+            <p class="text-zinc-400 text-center z-10 font-light">My thoughts</p>
+        </a>
+        -->
+    </div>
+
+</body>
+</html>

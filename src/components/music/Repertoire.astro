@@ -1,0 +1,154 @@
+---
+type Piece = { title: string; original: boolean; piano: boolean; windband: boolean; brassband: boolean; orchestra: boolean; };
+type ComposerRep = [string, Piece[]];
+
+const rep: ComposerRep[] = [
+    [ "Joseph Horovitz", [ { title: "Euphonium Concerto", original: true, piano: true, windband: true, brassband: true, orchestra: true } ] ],
+    [ "Philip Wilby", [ { title: "Euphonium Concerto", original: true, piano: true, windband: true, brassband: true, orchestra: false } ] ],
+    [ "Satoshi Yagisawa", [ { title: "Euphonium Concerto", original: true, piano: true, windband: true, brassband: false, orchestra: false } ] ],
+    [ "Yasuhide Ito", [ { title: "Fantasy Variations", original: true, piano: true, windband: true, brassband: false, orchestra: false } ] ],
+    [ "Luc Vertommen", [ { title: "Carmen Fantasy Nr. 1", original: true, piano: true, windband: true, brassband: true, orchestra: false } ] ],
+    [ "Rolf Wilhelm", [ { title: "Concertino for Euphonium", original: true, piano: true, windband: true, brassband: false, orchestra: false } ] ],
+    [ "Eduardo Boccalari", [ { title: "Fantasia di Concerto", original: true, piano: true, windband: true, brassband: false, orchestra: false } ] ],
+    [ "Bert Appermont", [ { title: "The Green Hill", original: true, piano: true, windband: true, brassband: true, orchestra: false } ] ],
+    [ "Jean-Baptiste Arban", [
+        { title: "Fantasie Brillante", original: false, piano: true, windband: true, brassband: true, orchestra: true },
+        { title: "Fantaisie Variations on \"The Carnival of Venice\"", original: false, piano: true, windband: true, brassband: true, orchestra: true }
+    ] ],
+    [ "Gilles Rocha", [ { title: "Ad Astra", original: true, piano: true, windband: false, brassband: true, orchestra: false } ] ],
+    [ "Antonio Vivaldi", [ { title: "Bassoon Concerto in E-flat minor, RV. 484", original: false, piano: true, windband: false, brassband: true, orchestra: true } ] ],
+    [ "Georg F. Telemann", [ { title: "Sonata in F minor", original: false, piano: true, windband: false, brassband: false, orchestra: false } ] ],
+    [ "Robert Schumann", [ { title: "Fantasiestücke, op. 73", original: false, piano: true, windband: false, brassband: false, orchestra: false } ] ],
+    [ "Marcel Bitsch", [ { title: "Intermezzo", original: true, piano: true, windband: false, brassband: false, orchestra: false } ] ],
+    [ "Jules Semler-Collery", [ { title: "Intermezzo", original: true, piano: true, windband: false, brassband: false, orchestra: false } ] ],
+    [ "Thomas Rüedi", [
+        { title: "In Modo Humano", original: true, piano: false, windband: false, brassband: false, orchestra: false },
+        { title: "Anemoi", original: true, piano: false, windband: false, brassband: false, orchestra: false }
+    ] ],
+    [ "Leonard Falcone", [ { title: "Mazurka", original: true, piano: false, windband: false, brassband: false, orchestra: false } ] ],
+    [ "Zequinha de Abreu", [ { title: "Tico-Tico no Fubá", original: true, piano: false, windband: false, brassband: false, orchestra: false } ] ],
+    [ "Philip Sparke", [
+        { title: "Harlequin", original: true, piano: true, windband: true, brassband: true, orchestra: false },
+        { title: "Pantomime", original: true, piano: true, windband: true, brassband: true, orchestra: false },
+        { title: "Euphonium Concerto Nr. 1", original: true, piano: true, windband: true, brassband: true, orchestra: false }
+    ] ],
+    [ "Johann Nepomuk Hummel", [ { title: "Grand Concerto for Bassoon", original: false, piano: true, windband: false, brassband: false, orchestra: true } ] ],
+    [ "John Stevens", [ { title: "Soliloquies", original: true, piano: false, windband: false, brassband: false, orchestra: false } ] ]
+];
+
+// Sort composers alphabetically by last name
+const sortedRep = rep.sort((a, b) => {
+    const aLast = a[0].split(" ").pop() || a[0];
+    const bLast = b[0].split(" ").pop() || b[0];
+    if (aLast === bLast) return a[0].localeCompare(b[0]);
+    return aLast.localeCompare(bLast);
+});
+---
+
+<div class="w-full max-w-4xl mx-auto">
+    <div class="flex flex-col md:flex-row gap-4 mb-8">
+        <select id="filter-acc" class="px-4 py-3 bg-white border border-music-dim text-zinc-900 rounded-md focus:outline-none focus:border-music-bright focus:ring-1 focus:ring-music-bright transition-all w-full md:w-1/3 shadow-sm">
+            <option value="">All Accompaniments</option>
+            <option value="c">Concert Band</option>
+            <option value="b">Brass Band</option>
+            <option value="s">Symphony Orchestra</option>
+            <option value="p">Piano</option>
+            <option value="u">Unaccompanied</option>
+        </select>
+
+        <input id="filter-composer" type="text" placeholder="Filter by Composer..." class="px-4 py-3 bg-white border border-music-dim text-zinc-900 rounded-md focus:outline-none focus:border-music-bright focus:ring-1 focus:ring-music-bright transition-all w-full md:w-1/3 placeholder-zinc-400 shadow-sm" />
+        
+        <input id="filter-title" type="text" placeholder="Filter by Title..." class="px-4 py-3 bg-white border border-music-dim text-zinc-900 rounded-md focus:outline-none focus:border-music-bright focus:ring-1 focus:ring-music-bright transition-all w-full md:w-1/3 placeholder-zinc-400 shadow-sm" />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="rep-container">
+        {sortedRep.map(composer => (
+            <div class="rep-card bg-white border border-music-dim/60 rounded-xl p-6 hover:border-music-bright hover:shadow-lg transition-all shadow-sm" data-composer={composer[0].toLowerCase()}>
+                <h3 class="text-xl font-playfair font-bold text-dark mb-4 border-b border-music-dim/30 pb-2">{composer[0]}</h3>
+                <ul class="space-y-2">
+                    {composer[1].map(piece => (
+                        <li class="piece-item text-zinc-600 font-rubik flex items-start before:content-['▹'] before:text-music-bright before:mr-2 before:font-bold"
+                            data-title={piece.title.toLowerCase()}
+                            data-c={piece.windband.toString()}
+                            data-b={piece.brassband.toString()}
+                            data-s={piece.orchestra.toString()}
+                            data-p={piece.piano.toString()}
+                            data-u={(!(piece.windband || piece.orchestra || piece.brassband || piece.piano)).toString()}
+                        >
+                            {piece.title}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        ))}
+    </div>
+    <div id="no-rep-results" class="hidden text-center py-12 text-zinc-500">
+        No repertoire found matching your filters.
+    </div>
+</div>
+
+<script is:inline>
+    document.addEventListener('astro:page-load', () => {
+        const filterAcc = document.getElementById('filter-acc');
+        const filterComp = document.getElementById('filter-composer');
+        const filterTitle = document.getElementById('filter-title');
+        const cards = document.querySelectorAll('.rep-card');
+        const noResults = document.getElementById('no-rep-results');
+
+        if (!filterAcc) return;
+
+        function updateFilters() {
+            const acc = filterAcc.value;
+            const comp = filterComp.value.toLowerCase();
+            const title = filterTitle.value.toLowerCase();
+
+            let visibleCardsCount = 0;
+
+            cards.forEach(card => {
+                const composerMatches = !comp || card.dataset.composer.includes(comp);
+                const pieces = card.querySelectorAll('.piece-item');
+                let visiblePiecesInCard = 0;
+
+                pieces.forEach(piece => {
+                    let pieceMatches = true;
+
+                    // If composer doesn't match, hide all pieces in this card
+                    if (!composerMatches) pieceMatches = false;
+
+                    // Title filter
+                    if (pieceMatches && title && !piece.dataset.title.includes(title)) pieceMatches = false;
+
+                    // Accompaniment filter
+                    if (pieceMatches && acc !== "") {
+                        if (piece.dataset[acc] !== "true") pieceMatches = false;
+                    }
+
+                    if (pieceMatches) {
+                        piece.style.display = 'flex';
+                        visiblePiecesInCard++;
+                    } else {
+                        piece.style.display = 'none';
+                    }
+                });
+
+                // Show card only if it has visible pieces
+                if (visiblePiecesInCard > 0) {
+                    card.style.display = 'block';
+                    visibleCardsCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (visibleCardsCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        filterAcc.addEventListener('change', updateFilters);
+        filterComp.addEventListener('input', updateFilters);
+        filterTitle.addEventListener('input', updateFilters);
+    });
+</script>

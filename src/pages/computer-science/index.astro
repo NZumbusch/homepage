@@ -1,0 +1,180 @@
+---
+import '../../app.css';
+import { ClientRouter } from 'astro:transitions';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nathan Zumbusch - Computer Science</title>
+    <meta name="description" content="Computer Science Portfolio of Nathan Zumbusch. Software Engineer spezialising in data science and computational musicology." />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <ClientRouter />
+</head>
+<body class="bg-slate-950 text-slate-300 font-mono min-h-screen flex flex-col selection:bg-blue-500/30">
+    <nav class="fixed top-0 w-full bg-slate-950/80 backdrop-blur-md border-b border-slate-800 z-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <a href="/" class="text-blue-400 font-bold hover:text-blue-300 transition-colors">NZ.</a>
+            <div class="flex flex-wrap justify-end gap-3 sm:gap-6 text-xs sm:text-sm font-medium text-slate-400">
+                <a href="#about" class="hover:text-blue-400 transition-colors">About</a>
+                <a href="#experience" class="hover:text-blue-400 transition-colors">Experience</a>
+                <a href="#education" class="hover:text-blue-400 transition-colors">Education</a>
+                <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 pt-32 pb-24 w-full flex-grow">
+        <!-- Hero Section -->
+        <header class="mb-24 animate-fade-in">
+            <h1 class="text-4xl md:text-6xl font-bold text-slate-100 mb-6">
+                <span class="text-blue-500">&gt;</span> Nathan Zumbusch
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-400 mb-8 max-w-2xl">
+                Software Engineer specializing in data science and computational musicology.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="/cv-nathan-zumbusch-english.pdf" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-md font-medium transition-colors inline-flex items-center justify-center gap-2 text-center">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Download CV
+                </a>
+                <a href="#contact" class="px-6 py-3 border border-slate-700 hover:border-blue-500 hover:text-blue-400 rounded-md font-medium transition-colors text-center">
+                    Get in touch
+                </a>
+            </div>
+        </header>
+
+        <!-- About Section -->
+        <section id="about" class="mb-24 scroll-mt-24">
+            <h2 class="text-2xl font-bold text-slate-100 mb-8 flex items-center gap-4">
+                <span class="w-8 h-px bg-blue-500"></span> About
+            </h2>
+            <div class="prose prose-invert prose-slate max-w-none text-slate-400 space-y-4 text-base md:text-lg leading-relaxed">
+                <p>For as long as I can remember, I have always been fascinated by complex systems. From sketching aerodynamic structures and writing letters to Airbus in my early years, to engineering multifaceted software systems today: learning, exploring, and discovering has always excited me.</p>
+                <p>It is this relentless curiosity that led me to complete university-level coursework in computer science, economics, and politics while still in high school, alongside running a web design business. Today, I channel that same energy into a unique dual-path: pursuing concurrent degrees in Computer Science and Classical Music Performance, anchored by a 1st prize at the national Jugend Musiziert competition as well as an award at the first prompt injection challenge at the AIXChange conference 2025.</p>
+                <p>Most recently, I bridged these two worlds during a research internship at the Digital and Cognitive Musicology Lab at EPFL in Lausanne, Switzerland. There, I was able to combine both of my fields by engineering low-latency C++ and Python pipelines, optimizing memory with custom SIMD-based query routines and designing complex binary data formats for storage of musical fragments, all while never losing the bigger picture and the context my music education gave me.</p>
+                <p>Through it all, I return to a simple conviction: success is rarely about where you start or what you already know. Instead, it is all about who you could be and what work you are willing to put in to get there.</p>
+            </div>
+        </section>
+
+        <!-- Experience Timeline -->
+        <section id="experience" class="mb-24 scroll-mt-24">
+            <h2 class="text-2xl font-bold text-slate-100 mb-12 flex items-center gap-4">
+                <span class="w-8 h-px bg-blue-500"></span> Experience
+            </h2>
+            <div class="relative border-l border-slate-800 ml-4 space-y-12">
+                
+                <!-- EPFL -->
+                <div class="relative pl-8">
+                    <div class="absolute w-3 h-3 bg-blue-500 rounded-full -left-[6.5px] top-1.5 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                    <div class="mb-1 text-sm text-blue-400">July 2026 – August 2026</div>
+                    <h3 class="text-xl font-bold text-slate-100">Software Engineering Research Intern</h3>
+                    <div class="text-slate-400 mb-4">École Polytechnique Fédérale de Lausanne (EPFL) · Digital & Cognitive Musicology Lab</div>
+                    <ul class="list-disc list-outside ml-4 text-slate-400 space-y-2 text-sm md:text-base">
+                        <li>Contributed to a low-latency C++/Python (nanobind) software for live piano improvisation.</li>
+                        <li>Implemented SIMD-accelerated memory queries (AVX, SSE3, NEON), keeping the audio thread lock-free.</li>
+                        <li>Designed thread-safe memory utilities using custom guards, RCU patterns and sync primitives.</li>
+                        <li>Developed a custom binary format and Python CLI parsing raw MIDI into structured database files.</li>
+                    </ul>
+                </div>
+
+                <!-- Kieweg und Freiermuth -->
+                <div class="relative pl-8">
+                    <div class="absolute w-3 h-3 bg-slate-700 rounded-full -left-[6.5px] top-1.5 border-2 border-slate-950"></div>
+                    <div class="mb-1 text-sm text-blue-400">October 2023 – January 2024</div>
+                    <h3 class="text-xl font-bold text-slate-100">Working Student, Web Design & Marketing</h3>
+                    <div class="text-slate-400 mb-4">Kieweg und Freiermuth Werbeagentur</div>
+                    <ul class="list-disc list-outside ml-4 text-slate-400 space-y-2 text-sm md:text-base">
+                        <li>Built full stack corporate B2B websites utilizing custom Contao CMS extensions.</li>
+                        <li>Mentored trainees via hands-on instruction in web development best practices and approaches.</li>
+                    </ul>
+                </div>
+
+                <!-- ZHAW -->
+                <div class="relative pl-8">
+                    <div class="absolute w-3 h-3 bg-slate-700 rounded-full -left-[6.5px] top-1.5 border-2 border-slate-950"></div>
+                    <div class="mb-1 text-sm text-blue-400">September 2023 – November 2023</div>
+                    <h3 class="text-xl font-bold text-slate-100">Working Student, Data Science</h3>
+                    <div class="text-slate-400 mb-4">ZHAW School of Management and Law · Public Governance</div>
+                    <ul class="list-disc list-outside ml-4 text-slate-400 space-y-2 text-sm md:text-base">
+                        <li>Developed a Python web crawler for extraction, cross-referencing, and validation of municipal contact data.</li>
+                        <li>Conducted quantitative and qualitative usability data analysis and surveys for a municipal energy portal.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Education Timeline -->
+        <section id="education" class="mb-24 scroll-mt-24">
+            <h2 class="text-2xl font-bold text-slate-100 mb-12 flex items-center gap-4">
+                <span class="w-8 h-px bg-blue-500"></span> Education
+            </h2>
+            <div class="relative border-l border-slate-800 ml-4 space-y-12">
+                
+                <!-- University of Konstanz -->
+                <div class="relative pl-8">
+                    <div class="absolute w-3 h-3 bg-blue-500 rounded-full -left-[6.5px] top-1.5 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                    <div class="mb-1 text-sm text-blue-400">September 2023 – April 2028</div>
+                    <h3 class="text-xl font-bold text-slate-100">Bachelor of Science in Computer Science</h3>
+                    <div class="text-slate-400 mb-4">University of Konstanz</div>
+                    <ul class="list-disc list-outside ml-4 text-slate-400 space-y-2 text-sm md:text-base">
+                        <li>Relevant Coursework: Algorithms & Data Structures, Software Engineering, Linear Algebra, Operating Systems.</li>
+                        <li>Academic Focus: Specializing in data science, low-level programming, and computational musicology.</li>
+                    </ul>
+                </div>
+
+                <!-- Lucerne University -->
+                <div class="relative pl-8">
+                    <div class="absolute w-3 h-3 bg-slate-700 rounded-full -left-[6.5px] top-1.5 border-2 border-slate-950"></div>
+                    <div class="mb-1 text-sm text-blue-400">September 2024 – July 2027</div>
+                    <h3 class="text-xl font-bold text-slate-100">Bachelor of Arts in Music</h3>
+                    <div class="text-slate-400 mb-4">Lucerne University of Applied Sciences and Arts · Instrumental Classical Music Performance</div>
+                    <ul class="list-disc list-outside ml-4 text-slate-400 space-y-2 text-sm md:text-base">
+                        <li>Relevant Coursework: Music history, Music theory with a focus on Baroque and Classical era composition.</li>
+                        <li>Experience in chamber music, orchestral playing and soloist performance, including stage training.</li>
+                    </ul>
+                </div>
+
+                <!-- High School -->
+                <div class="relative pl-8">
+                    <div class="absolute w-3 h-3 bg-slate-700 rounded-full -left-[6.5px] top-1.5 border-2 border-slate-950"></div>
+                    <div class="mb-1 text-sm text-blue-400">September 2015 – July 2023</div>
+                    <h3 class="text-xl font-bold text-slate-100">Abitur (University Entrance Qualification)</h3>
+                    <div class="text-slate-400 mb-4">Heinrich-Suso-Gymnasium Konstanz</div>
+                    <ul class="list-disc list-outside ml-4 text-slate-400 space-y-2 text-sm md:text-base">
+                        <li>Final Grade: 1.0 (maximum possible grade, highest distinction).</li>
+                        <li>Early Enrollment: University courses in politics, economics, and computer science parallel to high school.</li>
+                        <li>School awards for excellence in Mathematics, German and English upon graduation.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="scroll-mt-24">
+            <h2 class="text-2xl font-bold text-slate-100 mb-8 flex items-center gap-4">
+                <span class="w-8 h-px bg-blue-500"></span> Contact
+            </h2>
+            <div class="bg-slate-900 border border-slate-800 rounded-lg p-8">
+                <p class="text-slate-400 mb-6">Whether you have a question, an idea or an opportunity - I'm always open for a chat!</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="mailto:info@nathanzumbusch.de" class="px-6 py-3 bg-blue-600/10 text-blue-400 hover:bg-blue-600/20 border border-blue-500/30 rounded-md font-medium transition-colors text-center">
+                        Send an Email
+                    </a>
+                    <a href="https://linkedin.com/in/nathanzumbusch" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700 rounded-md font-medium transition-colors text-center">
+                        LinkedIn Profile
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-900 mt-24 py-12 text-center text-slate-600 text-sm px-6 w-full">
+        <p>&copy; {new Date().getFullYear()} Nathan Zumbusch. Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="hover:text-slate-400 transition-colors underline decoration-slate-700 underline-offset-2">Astro</a> & <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer" class="hover:text-slate-400 transition-colors underline decoration-slate-700 underline-offset-2">Tailwind</a>.</p>
+    </footer>
+</body>
+</html>

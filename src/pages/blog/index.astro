@@ -1,0 +1,144 @@
+---
+import '../../app.css';
+import { ClientRouter } from 'astro:transitions';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts.map(post => ({
+    title: post.data.title,
+    slug: post.slug,
+    date: post.data.date.toISOString().split('T')[0],
+    category: post.data.category,
+    excerpt: post.data.excerpt
+})).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+const categories = ["All", ...new Set(posts.map(p => p.category))];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nathan Zumbusch - Blog</title>
+    <meta name="description" content="Thoughts and writings on computer science, classical music, philosophy, and literature by Nathan Zumbusch." />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <ClientRouter />
+</head>
+<body class="bg-light text-zinc-900 font-rubik min-h-screen flex flex-col selection:bg-emerald-500/30">
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-zinc-200 z-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <a href="/" class="text-zinc-900 font-playfair font-bold text-xl hover:text-emerald-600 transition-colors">NZ.</a>
+            <div class="flex gap-4 sm:gap-6 text-xs sm:text-sm uppercase tracking-wider font-medium text-zinc-500">
+                <a href="/computer-science" class="hover:text-zinc-900 transition-colors">CS</a>
+                <a href="/music" class="hover:text-zinc-900 transition-colors">Music</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 pt-32 pb-24 w-full flex-grow">
+        <!-- Header -->
+        <header class="mb-16 animate-fade-in text-center md:text-left">
+            <h1 class="text-4xl md:text-6xl font-playfair font-bold text-zinc-900 mb-6">Writings & Reviews</h1>
+            <p class="text-lg text-zinc-600 leading-relaxed max-w-2xl mx-auto md:mx-0">
+                Thoughts on computer science, classical music, philosophy, and literature. A space for cross-disciplinary exploration.
+            </p>
+        </header>
+
+        <!-- Categories Filter -->
+        <div class="flex flex-wrap gap-2 mb-12 justify-center md:justify-start" id="filter-container">
+            {categories.map((category) => (
+                <button 
+                    class="filter-btn px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-full transition-all duration-300"
+                    data-category={category}
+                >
+                    {category}
+                </button>
+            ))}
+        </div>
+
+        <!-- Posts Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="posts-container">
+            {posts.map((post) => (
+                <article class="post-card bg-white border border-zinc-200 rounded-2xl p-8 hover:shadow-xl hover:border-emerald-200 transition-all duration-300 group flex flex-col justify-between" data-category={post.category}>
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-widest rounded-full">{post.category}</span>
+                            <time class="text-sm text-zinc-400 font-mono">{post.date}</time>
+                        </div>
+                        <a href={`/blog/${post.slug}`} class="block mb-4">
+                            <h2 class="text-2xl font-playfair font-bold text-zinc-900 group-hover:text-emerald-600 transition-colors leading-snug">{post.title}</h2>
+                        </a>
+                        <p class="text-zinc-600 leading-relaxed mb-8">{post.excerpt}</p>
+                    </div>
+                    <a href={`/blog/${post.slug}`} class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-zinc-400 group-hover:text-emerald-600 transition-colors w-fit">
+                        Read Article 
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </article>
+            ))}
+        </div>
+        
+        <div id="no-results" class="hidden text-center py-20 text-zinc-500 text-lg">
+            No articles found for this category.
+        </div>
+    </main>
+
+    <footer class="border-t border-zinc-200 py-12 text-center text-zinc-500 text-sm px-6 w-full">
+        <p>&copy; {new Date().getFullYear()} Nathan Zumbusch. All Rights Reserved.</p>
+        <p class="mt-2 text-xs opacity-75 max-w-2xl mx-auto">Scraping or utilizing this content for the purpose of training artificial intelligence models (LLMs) is strictly prohibited without explicit written permission.</p>
+    </footer>
+
+    <script is:inline>
+        document.addEventListener('astro:page-load', () => {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const posts = document.querySelectorAll('.post-card');
+            const noResults = document.getElementById('no-results');
+            
+            // Set initial active state (All)
+            const setBtnState = (btn, isActive) => {
+                if (isActive) {
+                    btn.classList.add('bg-zinc-900', 'text-white', 'shadow-md');
+                    btn.classList.remove('bg-zinc-100', 'text-zinc-600', 'hover:bg-zinc-200');
+                } else {
+                    btn.classList.add('bg-zinc-100', 'text-zinc-600', 'hover:bg-zinc-200');
+                    btn.classList.remove('bg-zinc-900', 'text-white', 'shadow-md');
+                }
+            };
+
+            buttons.forEach(btn => {
+                if (btn.dataset.category === 'All') setBtnState(btn, true);
+                else setBtnState(btn, false);
+            });
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.dataset.category;
+                    
+                    // Update buttons
+                    buttons.forEach(b => setBtnState(b, false));
+                    setBtnState(btn, true);
+
+                    // Filter posts
+                    let visibleCount = 0;
+                    posts.forEach(post => {
+                        if (category === 'All' || post.dataset.category === category) {
+                            post.style.display = 'flex';
+                            visibleCount++;
+                        } else {
+                            post.style.display = 'none';
+                        }
+                    });
+
+                    // Show no results message if needed
+                    if (visibleCount === 0) {
+                        noResults.classList.remove('hidden');
+                    } else {
+                        noResults.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
